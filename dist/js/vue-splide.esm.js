@@ -1852,6 +1852,14 @@ function Drag(Splide2, Components2, options) {
     var isObj = isObject$1(thresholds);
     var mouse = isObj && thresholds.mouse || 0;
     var touch = (isObj ? thresholds.touch : +thresholds) || 10;
+    // Only if on mobile, check if the event is a touch event
+    // Check if the event involves two touches
+    if (isTouchEvent(e) && e.touches.length === 2) {
+      // Two-touch restriction: Disable dragging
+      return false;
+    }
+
+    // Original code for checking the threshold
     return abs(diffCoord(e)) > (isTouchEvent(e) ? touch : mouse);
   }
   function isSliderDirection(e) {
